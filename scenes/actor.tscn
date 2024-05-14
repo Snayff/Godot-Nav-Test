@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://bvlh8x1msnkw"]
+
+[ext_resource type="Script" path="res://scenes/actor.gd" id="1_gqi0n"]
+[ext_resource type="Texture2D" uid="uid://qie2ny07j6ws" path="res://assets/actor.png" id="2_pl70d"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nc2wv"]
+
+[node name="Actor" type="CharacterBody2D"]
+collision_mask = 3
+script = ExtResource("1_gqi0n")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_pl70d")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_nc2wv")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+debug_enabled = true
+debug_use_custom = true
+debug_path_custom_color = Color(0.660084, 0.642543, 0.178399, 1)
