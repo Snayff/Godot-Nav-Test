@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://274k52qxmr15"]
 
+[ext_resource type="Script" path="res://scenes/world.gd" id="1_4oxq8"]
 [ext_resource type="Texture2D" uid="uid://rpe11jjnt1tb" path="res://assets/caves.png" id="1_jdpwj"]
 [ext_resource type="PackedScene" uid="uid://bvlh8x1msnkw" path="res://scenes/actor.tscn" id="2_eel51"]
-[ext_resource type="PackedScene" uid="uid://c6tomjrf0a33x" path="res://scenes/enemy.tscn" id="3_s3owc"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_g6q47"]
 texture = ExtResource("1_jdpwj")
@@ -32,6 +32,7 @@ cell_size = 4.0
 agent_radius = 7.0
 
 [node name="World" type="Node2D"]
+script = ExtResource("1_4oxq8")
 
 [node name="TileMap" type="TileMap" parent="." groups=["navigation"]]
 tile_set = SubResource("TileSet_v5ffv")
@@ -46,11 +47,8 @@ layer_1/tile_data = PackedInt32Array(-327690, 458753, 9, -262154, 458753, 9, -19
 position = Vector2(115, -95)
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(319, 133)
-
-[node name="Enemy" parent="." node_paths=PackedStringArray("player") instance=ExtResource("3_s3owc")]
-position = Vector2(192, -35)
-player = NodePath("../Actor")
+position = Vector2(17, -1)
+zoom = Vector2(2, 2)
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 navigation_polygon = SubResource("NavigationPolygon_pupyf")

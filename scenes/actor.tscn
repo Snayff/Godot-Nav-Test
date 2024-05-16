@@ -1,21 +1,55 @@
-[gd_scene load_steps=4 format=3 uid="uid://bvlh8x1msnkw"]
+[gd_scene load_steps=8 format=3 uid="uid://bvlh8x1msnkw"]
 
 [ext_resource type="Script" path="res://scenes/actor.gd" id="1_gqi0n"]
-[ext_resource type="Texture2D" uid="uid://qie2ny07j6ws" path="res://assets/actor.png" id="2_pl70d"]
+[ext_resource type="Texture2D" uid="uid://dj4jkqixyrq3a" path="res://assets/StrongholdSpriteMale-Right(Frame1).png" id="2_7huv6"]
+[ext_resource type="Texture2D" uid="uid://do0g42e6qxuh" path="res://assets/StrongholdSpriteMale-Right(Frame2).png" id="3_ehweb"]
+[ext_resource type="Texture2D" uid="uid://shmbrmh48v7k" path="res://assets/StrongholdSpriteMale-Right(Frame3).png" id="4_pja6b"]
+[ext_resource type="Texture2D" uid="uid://yjwn3uk0yut3" path="res://assets/StrongholdSpriteMale-Right(Frame4).png" id="5_kpxmn"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_nc2wv"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_cl6i2"]
+radius = 6.0
 
-[node name="Actor" type="CharacterBody2D"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_vl5q1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_7huv6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ehweb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_pja6b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_kpxmn")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Actor" type="CharacterBody2D" groups=["Selectable"]]
 collision_mask = 3
 script = ExtResource("1_gqi0n")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_pl70d")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_nc2wv")
+position = Vector2(-1, 5)
+shape = SubResource("CircleShape2D_cl6i2")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_vl5q1")
+frame_progress = 0.685979
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 debug_enabled = true
 debug_use_custom = true
 debug_path_custom_color = Color(0.660084, 0.642543, 0.178399, 1)
+
+[node name="Timer_Path" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[connection signal="navigation_finished" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_navigation_finished"]
+[connection signal="target_reached" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_target_reached"]
+[connection signal="timeout" from="Timer_Path" to="." method="_on_timer_path_timeout"]
