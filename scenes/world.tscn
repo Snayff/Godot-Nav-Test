@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scenes/world.gd" id="1_4oxq8"]
 [ext_resource type="Texture2D" uid="uid://rpe11jjnt1tb" path="res://assets/caves.png" id="1_jdpwj"]
 [ext_resource type="PackedScene" uid="uid://bvlh8x1msnkw" path="res://scenes/actor.tscn" id="2_eel51"]
-[ext_resource type="Script" path="res://scenes/FPSCounter.gd" id="4_y4h45"]
+[ext_resource type="Script" path="res://scenes/fps_counter.gd" id="4_y4h45"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_g6q47"]
 texture = ExtResource("1_jdpwj")
@@ -35,6 +35,29 @@ agent_radius = 7.0
 [node name="World" type="Node2D"]
 script = ExtResource("1_4oxq8")
 
+[node name="HUD" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CanvasLayer" type="CanvasLayer" parent="HUD"]
+follow_viewport_enabled = true
+
+[node name="FPSCounter" type="Label" parent="HUD/CanvasLayer"]
+anchors_preset = -1
+anchor_left = -0.235
+anchor_top = -0.249
+anchor_right = -0.235
+anchor_bottom = -0.249
+offset_left = -1.27997
+offset_top = -0.647995
+offset_right = 38.72
+offset_bottom = 22.352
+script = ExtResource("4_y4h45")
+
 [node name="TileMap" type="TileMap" parent="." groups=["navigation"]]
 tile_set = SubResource("TileSet_v5ffv")
 format = 2
@@ -64,24 +87,3 @@ position = Vector2(107, -74)
 
 [node name="Actor4" parent="Actors" instance=ExtResource("2_eel51")]
 position = Vector2(135, -101)
-
-[node name="Control" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="CanvasLayer" type="CanvasLayer" parent="Control"]
-follow_viewport_enabled = true
-
-[node name="FPSCounter" type="Label" parent="Control/CanvasLayer"]
-anchors_preset = -1
-anchor_left = -0.235
-anchor_top = -0.249
-anchor_right = -0.235
-anchor_bottom = -0.249
-offset_left = -1.27997
-offset_top = -0.647995
-offset_right = 38.72
-offset_bottom = 22.352
-script = ExtResource("4_y4h45")

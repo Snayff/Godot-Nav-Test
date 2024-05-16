@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://qie2ny07j6ws"
-path="res://.godot/imported/actor.png-dc7627462f538165a2b18d40cb8fc356.ctex"
+uid="uid://dwika5sifqd1u"
+path="res://.godot/imported/CavalierIdle(Frame4).png-b9a001c07fdbfd100bdbf6fc4682dcb5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/actor.png"
-dest_files=["res://.godot/imported/actor.png-dc7627462f538165a2b18d40cb8fc356.ctex"]
+source_file="res://assets/actor/CavalierIdle(Frame4).png"
+dest_files=["res://.godot/imported/CavalierIdle(Frame4).png-b9a001c07fdbfd100bdbf6fc4682dcb5.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://yjwn3uk0yut3"
-path="res://.godot/imported/StrongholdSpriteMale-Right(Frame4).png-ba0bc8c58ddad78a98be76dcea5fd713.ctex"
+uid="uid://bfyflghdqf77c"
+path="res://.godot/imported/CavalierIdle(Frame3).png-81edd09e18858b49eaaba18a8f304bbf.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/StrongholdSpriteMale-Right(Frame4).png"
-dest_files=["res://.godot/imported/StrongholdSpriteMale-Right(Frame4).png-ba0bc8c58ddad78a98be76dcea5fd713.ctex"]
+source_file="res://assets/actor/CavalierIdle(Frame3).png"
+dest_files=["res://.godot/imported/CavalierIdle(Frame3).png-81edd09e18858b49eaaba18a8f304bbf.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://hpy10tn4a3w5"
-path="res://.godot/imported/border_round_gold.png-bd66efd35555e1f01ffaae024a83f23b.ctex"
+uid="uid://d0qul2uvj8ki0"
+path="res://.godot/imported/CavalierWalk(Frame3).png-7aa7898054c852a2665e535271c1e936.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/border_round_gold.png"
-dest_files=["res://.godot/imported/border_round_gold.png-bd66efd35555e1f01ffaae024a83f23b.ctex"]
+source_file="res://assets/actor/CavalierWalk(Frame3).png"
+dest_files=["res://.godot/imported/CavalierWalk(Frame3).png-7aa7898054c852a2665e535271c1e936.ctex"]
 
 [params]
 
