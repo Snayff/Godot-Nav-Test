@@ -2,7 +2,6 @@ extends CharacterBody2D
 
 
 const movement_speed: float = 80.0
-#var dir: Vector2
 @onready var nav_agent: NavigationAgent2D = $NavigationAgent2D
 var target_destination: Vector2
 
@@ -10,13 +9,6 @@ func _ready() -> void:
 	EventBus.connect("destination_set", set_destination)
 	nav_agent.velocity_computed.connect(Callable(_on_velocity_computed))
 
-
-
-#func _process(delta: float) -> void:
-#	var next_path_pos := nav_agent.get_next_path_position()
-#	var dir := global_position.direction_to(next_path_pos)
-#	velocity = dir * speed
-#	move_and_slide()
 
 func _physics_process(delta) -> void:
 	if nav_agent.is_navigation_finished():
@@ -42,4 +34,5 @@ func _on_velocity_computed(safe_velocity: Vector2):
 	move_and_slide()
 
 func _on_timer_path_timeout() -> void:
+	# TODO: change to queing for path update, to limit fps drop
 	_update_path()

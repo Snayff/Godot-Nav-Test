@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://274k52qxmr15"]
+[gd_scene load_steps=8 format=3 uid="uid://274k52qxmr15"]
 
 [ext_resource type="Script" path="res://scenes/world.gd" id="1_4oxq8"]
 [ext_resource type="Texture2D" uid="uid://rpe11jjnt1tb" path="res://assets/caves.png" id="1_jdpwj"]
 [ext_resource type="PackedScene" uid="uid://bvlh8x1msnkw" path="res://scenes/actor.tscn" id="2_eel51"]
+[ext_resource type="Script" path="res://scenes/FPSCounter.gd" id="4_y4h45"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_g6q47"]
 texture = ExtResource("1_jdpwj")
@@ -43,12 +44,44 @@ layer_1/name = "Blocked"
 layer_1/z_index = 1
 layer_1/tile_data = PackedInt32Array(-327690, 458753, 9, -262154, 458753, 9, -196618, 458753, 9, -131082, 458753, 9, -65546, 458753, 9, -10, 458753, 9, 65526, 458753, 9, 131062, 458753, 9, 196598, 458753, 9, 262134, 458753, 9, 327670, 458753, 9, -9, 458753, 9, -8, 458753, 9, -7, 458753, 9, -6, 458753, 9, -5, 458753, 9, -4, 458753, 9, 262138, 458753, 9, 327674, 458753, 9, 327675, 458753, 9, 65541, 458753, 9, 131077, 458753, 9, 196613, 458753, 9, 262149, 458753, 9, 327685, 458753, 9, 393221, 458753, 9, 393220, 458753, 9, 393219, 458753, 9, 393218, 458753, 9, -196601, 458753, 9, -262136, 458753, 9, -327671, 458753, 9, -393206, 458753, 9, -393216, 458753, 9, -393215, 458753, 9, -393214, 458753, 9, -393213, 458753, 9, -393212, 458753, 9, -327676, 458753, 9, -327677, 458753, 9, -327678, 458753, 9, -327679, 458753, 9, -327680, 458753, 9, 196609, 131073, 0, 131073, 131073, 0, 196610, 131073, 0, 131074, 131073, 0)
 
-[node name="Actor" parent="." instance=ExtResource("2_eel51")]
-position = Vector2(115, -95)
-
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(17, -1)
 zoom = Vector2(2, 2)
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 navigation_polygon = SubResource("NavigationPolygon_pupyf")
+
+[node name="Actors" type="Node" parent="."]
+
+[node name="Actor" parent="Actors" instance=ExtResource("2_eel51")]
+position = Vector2(115, -95)
+
+[node name="Actor2" parent="Actors" instance=ExtResource("2_eel51")]
+position = Vector2(104, -111)
+
+[node name="Actor3" parent="Actors" instance=ExtResource("2_eel51")]
+position = Vector2(107, -74)
+
+[node name="Actor4" parent="Actors" instance=ExtResource("2_eel51")]
+position = Vector2(135, -101)
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Control"]
+follow_viewport_enabled = true
+
+[node name="FPSCounter" type="Label" parent="Control/CanvasLayer"]
+anchors_preset = -1
+anchor_left = -0.235
+anchor_top = -0.249
+anchor_right = -0.235
+anchor_bottom = -0.249
+offset_left = -1.27997
+offset_top = -0.647995
+offset_right = 38.72
+offset_bottom = 22.352
+script = ExtResource("4_y4h45")
