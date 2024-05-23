@@ -83,7 +83,31 @@ position = Vector2(115, -95)
 position = Vector2(104, -111)
 
 [node name="Actor3" parent="Actors" instance=ExtResource("2_eel51")]
-position = Vector2(107, -74)
+position = Vector2(-123, -40)
 
 [node name="Actor4" parent="Actors" instance=ExtResource("2_eel51")]
-position = Vector2(135, -101)
+position = Vector2(123, -116)
+
+[node name="Actor5" parent="Actors" instance=ExtResource("2_eel51")]
+position = Vector2(120, -134)
+
+[node name="Actor6" parent="Actors" instance=ExtResource("2_eel51")]
+position = Vector2(158, -120)
+
+[node name="Actor7" parent="Actors" instance=ExtResource("2_eel51")]
+position = Vector2(99, -134)
+
+[node name="Actor8" parent="Actors" instance=ExtResource("2_eel51")]
+position = Vector2(177, 1)
+
+[node name="Actor9" parent="Actors" instance=ExtResource("2_eel51")]
+position = Vector2(-107, -39)
+
+[node name="Actor10" parent="Actors" instance=ExtResource("2_eel51")]
+position = Vector2(129, -89)
+
+[node name="Actor11" parent="Actors" instance=ExtResource("2_eel51")]
+position = Vector2(140, -124)
+
+[node name="Actor12" parent="Actors" instance=ExtResource("2_eel51")]
+position = Vector2(140, -106)
