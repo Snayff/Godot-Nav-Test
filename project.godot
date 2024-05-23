@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 EventBus="*res://scripts/event_bus.gd"
 Pathing="*res://scripts/pathing.gd"
+Actors="*res://scripts/actors.gd"
 
 [navigation]
 
