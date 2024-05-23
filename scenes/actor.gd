@@ -3,6 +3,7 @@ extends CharacterBody2D
 
 @onready var nav_agent: NavigationAgent2D = $NavigationAgent2D
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var timer_path: Timer = $Timer_Path
 
 const movement_speed: float = 80.0
 enum STATE {
@@ -40,6 +41,7 @@ func set_destination(destination: Vector2) -> void:
 
 func update_path() -> void:
 	nav_agent.target_position = target_destination
+	timer_path.start()
 	
 func queue_update_path() -> void:
 	Pathing.add_to_path_refresh_queue(self)
