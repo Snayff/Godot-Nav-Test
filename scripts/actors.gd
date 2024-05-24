@@ -2,6 +2,7 @@ extends Node
 
 var team1: Array = []  # untyped array due to using get_nodes_in_group
 var team2: Array = []
+var all_actors: Array = []
 
 func _ready() -> void:
 	refresh_team_lists()
@@ -9,7 +10,9 @@ func _ready() -> void:
 func refresh_team_lists() -> void:
 	team1 = get_tree().get_nodes_in_group("team1")
 	team2 = get_tree().get_nodes_in_group("team2")
-	
+	all_actors.clear()
+	all_actors.append_array(team1)
+	all_actors.append_array(team2)
 	# print_rich("team1: ", team1, "| team2:", team2)
 	
 func get_closest_actor_in_team(actor: Actor, team: String) -> Actor:
@@ -39,3 +42,5 @@ func get_closest_actor_in_team(actor: Actor, team: String) -> Actor:
 		
 func _is_closer(origin: Vector2, target: Vector2, current_distance: float) -> bool:
 	return origin.distance_to(target) < current_distance 
+	
+	

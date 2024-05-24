@@ -53,6 +53,15 @@ animations = [{
 [node name="Actor" type="CharacterBody2D"]
 collision_mask = 3
 script = ExtResource("1_gqi0n")
+max_speed = null
+min_speed = null
+target_force = null
+cohesion_force = null
+alignment_force = null
+separation_force = null
+view_distance = null
+avoid_distance = null
+max_flock_size = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 5)
