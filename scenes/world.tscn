@@ -33,6 +33,7 @@ cell_size = 4.0
 agent_radius = 7.0
 
 [node name="World" type="Node2D"]
+position = Vector2(256, 192)
 script = ExtResource("1_4oxq8")
 
 [node name="HUD" type="Control" parent="."]
@@ -79,45 +80,45 @@ navigation_polygon = SubResource("NavigationPolygon_pupyf")
 [node name="Team1" type="Node" parent="Actors"]
 
 [node name="Actor" parent="Actors/Team1" groups=["team1"] instance=ExtResource("2_eel51")]
-position = Vector2(-193, -73)
+position = Vector2(59, 140)
 
 [node name="Actor2" parent="Actors/Team1" groups=["team1"] instance=ExtResource("2_eel51")]
-position = Vector2(-190, -1)
+position = Vector2(62, 212)
 
 [node name="Actor3" parent="Actors/Team1" groups=["team1"] instance=ExtResource("2_eel51")]
-position = Vector2(-187, 55)
+position = Vector2(65, 268)
 
 [node name="Actor4" parent="Actors/Team1" groups=["team1"] instance=ExtResource("2_eel51")]
-position = Vector2(-196, 46)
+position = Vector2(56, 259)
 
 [node name="Actor5" parent="Actors/Team1" groups=["team1"] instance=ExtResource("2_eel51")]
-position = Vector2(-180, 18)
+position = Vector2(72, 231)
 
 [node name="Actor6" parent="Actors/Team1" groups=["team1"] instance=ExtResource("2_eel51")]
-position = Vector2(-181, -41)
+position = Vector2(71, 172)
 
 [node name="Team2" type="Node" parent="Actors"]
 
 [node name="Actor7" parent="Actors/Team2" groups=["team2"] instance=ExtResource("2_eel51")]
 modulate = Color(0.866588, 0.176833, 0.176833, 1)
-position = Vector2(58, 73)
+position = Vector2(130, 148)
 
 [node name="Actor8" parent="Actors/Team2" groups=["team2"] instance=ExtResource("2_eel51")]
 modulate = Color(0.785124, 0.0982494, 0.0982494, 1)
-position = Vector2(95, 125)
+position = Vector2(367, 114)
 
 [node name="Actor9" parent="Actors/Team2" groups=["team2"] instance=ExtResource("2_eel51")]
 modulate = Color(0.757969, 0.0798969, 0.0798969, 1)
-position = Vector2(-38, -11)
+position = Vector2(270, 72)
 
 [node name="Actor10" parent="Actors/Team2" groups=["team2"] instance=ExtResource("2_eel51")]
 modulate = Color(0.819067, 0.12943, 0.12943, 1)
-position = Vector2(-125, -107)
+position = Vector2(221, 315)
 
 [node name="Actor11" parent="Actors/Team2" groups=["team2"] instance=ExtResource("2_eel51")]
 modulate = Color(0.812278, 0.149725, 0.149725, 1)
-position = Vector2(-104, -61)
+position = Vector2(133, 207)
 
 [node name="Actor12" parent="Actors/Team2" groups=["team2"] instance=ExtResource("2_eel51")]
 modulate = Color(0.846222, 0.139286, 0.139286, 1)
-position = Vector2(136, -133)
+position = Vector2(303, 149)
