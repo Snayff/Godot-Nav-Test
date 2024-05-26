@@ -81,44 +81,152 @@ navigation_polygon = SubResource("NavigationPolygon_pupyf")
 
 [node name="Actor" parent="Actors/Team1" groups=["team1"] instance=ExtResource("2_eel51")]
 position = Vector2(59, 140)
+max_speed = 100.0
+min_speed = 80.0
+target_force = 2.0
+cohesion_force = 2.0
+alignment_force = 3.0
+separation_force = 5.0
+view_distance = 50.0
+avoid_distance = 15.0
+max_flock_size = 15.0
 
 [node name="Actor2" parent="Actors/Team1" groups=["team1"] instance=ExtResource("2_eel51")]
 position = Vector2(62, 212)
+max_speed = 100.0
+min_speed = 80.0
+target_force = 2.0
+cohesion_force = 2.0
+alignment_force = 3.0
+separation_force = 5.0
+view_distance = 50.0
+avoid_distance = 15.0
+max_flock_size = 15.0
 
 [node name="Actor3" parent="Actors/Team1" groups=["team1"] instance=ExtResource("2_eel51")]
 position = Vector2(65, 268)
+max_speed = 100.0
+min_speed = 80.0
+target_force = 2.0
+cohesion_force = 2.0
+alignment_force = 3.0
+separation_force = 5.0
+view_distance = 50.0
+avoid_distance = 15.0
+max_flock_size = 15.0
 
 [node name="Actor4" parent="Actors/Team1" groups=["team1"] instance=ExtResource("2_eel51")]
 position = Vector2(56, 259)
+max_speed = 100.0
+min_speed = 80.0
+target_force = 2.0
+cohesion_force = 2.0
+alignment_force = 3.0
+separation_force = 5.0
+view_distance = 50.0
+avoid_distance = 15.0
+max_flock_size = 15.0
 
 [node name="Actor5" parent="Actors/Team1" groups=["team1"] instance=ExtResource("2_eel51")]
 position = Vector2(72, 231)
+max_speed = 100.0
+min_speed = 80.0
+target_force = 2.0
+cohesion_force = 2.0
+alignment_force = 3.0
+separation_force = 5.0
+view_distance = 50.0
+avoid_distance = 15.0
+max_flock_size = 15.0
 
 [node name="Actor6" parent="Actors/Team1" groups=["team1"] instance=ExtResource("2_eel51")]
 position = Vector2(71, 172)
+max_speed = 100.0
+min_speed = 80.0
+target_force = 2.0
+cohesion_force = 2.0
+alignment_force = 3.0
+separation_force = 5.0
+view_distance = 50.0
+avoid_distance = 15.0
+max_flock_size = 15.0
 
 [node name="Team2" type="Node" parent="Actors"]
 
 [node name="Actor7" parent="Actors/Team2" groups=["team2"] instance=ExtResource("2_eel51")]
 modulate = Color(0.866588, 0.176833, 0.176833, 1)
 position = Vector2(130, 148)
+max_speed = 100.0
+min_speed = 80.0
+target_force = 2.0
+cohesion_force = 2.0
+alignment_force = 3.0
+separation_force = 5.0
+view_distance = 50.0
+avoid_distance = 15.0
+max_flock_size = 15.0
 
 [node name="Actor8" parent="Actors/Team2" groups=["team2"] instance=ExtResource("2_eel51")]
 modulate = Color(0.785124, 0.0982494, 0.0982494, 1)
 position = Vector2(367, 114)
+max_speed = 100.0
+min_speed = 80.0
+target_force = 2.0
+cohesion_force = 2.0
+alignment_force = 3.0
+separation_force = 5.0
+view_distance = 50.0
+avoid_distance = 15.0
+max_flock_size = 15.0
 
 [node name="Actor9" parent="Actors/Team2" groups=["team2"] instance=ExtResource("2_eel51")]
 modulate = Color(0.757969, 0.0798969, 0.0798969, 1)
 position = Vector2(270, 72)
+max_speed = 100.0
+min_speed = 80.0
+target_force = 2.0
+cohesion_force = 2.0
+alignment_force = 3.0
+separation_force = 5.0
+view_distance = 50.0
+avoid_distance = 15.0
+max_flock_size = 15.0
 
 [node name="Actor10" parent="Actors/Team2" groups=["team2"] instance=ExtResource("2_eel51")]
 modulate = Color(0.819067, 0.12943, 0.12943, 1)
 position = Vector2(221, 315)
+max_speed = 100.0
+min_speed = 80.0
+target_force = 2.0
+cohesion_force = 2.0
+alignment_force = 3.0
+separation_force = 5.0
+view_distance = 50.0
+avoid_distance = 15.0
+max_flock_size = 15.0
 
 [node name="Actor11" parent="Actors/Team2" groups=["team2"] instance=ExtResource("2_eel51")]
 modulate = Color(0.812278, 0.149725, 0.149725, 1)
 position = Vector2(133, 207)
+max_speed = 100.0
+min_speed = 80.0
+target_force = 2.0
+cohesion_force = 2.0
+alignment_force = 3.0
+separation_force = 5.0
+view_distance = 50.0
+avoid_distance = 15.0
+max_flock_size = 15.0
 
 [node name="Actor12" parent="Actors/Team2" groups=["team2"] instance=ExtResource("2_eel51")]
 modulate = Color(0.846222, 0.139286, 0.139286, 1)
 position = Vector2(303, 149)
+max_speed = 100.0
+min_speed = 80.0
+target_force = 2.0
+cohesion_force = 2.0
+alignment_force = 3.0
+separation_force = 5.0
+view_distance = 50.0
+avoid_distance = 15.0
+max_flock_size = 15.0

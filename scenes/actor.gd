@@ -15,6 +15,7 @@ extends CharacterBody2D
 @export var view_distance: float = 50.0
 @export var avoid_distance: float = 15.0
 @export var max_flock_size: float = 15
+@export var acceleration_ramp_up: float = 0.01
 
 
 const movement_speed: float = 80.0
@@ -46,7 +47,7 @@ func _ready() -> void:
 		ally_team_group = "team2"
 		enemy_team_group = "team1"
 
-	Actors.refresh_team_lists()  # TODO: this is dumb. better to add self to team list.
+	Actors.add_to_team(self, ally_team_group)
 
 func _process(delta: float) -> void:
 	if nav_agent.is_navigation_finished():
@@ -54,26 +55,32 @@ func _process(delta: float) -> void:
 	else:
 		set_state(STATE.MOVING)
 
-
-
 func _physics_process(delta) -> void:
 	if current_state == STATE.MOVING and target_destination != Vector2.ZERO:
 		var next_path_pos: Vector2 = nav_agent.get_next_path_position()
+		
+		# get target vectors and modify by steering forces
 		var target_vec: Vector2 = global_position.direction_to(next_path_pos) * movement_speed * target_force
-
-		# get steering forces
 		var flock_status: Array = _get_flock_status()
 		var cohesion_vec: Vector2 = flock_status[0] * cohesion_force
 		var align_vec: Vector2 = flock_status[1] * alignment_force
 		var separation_vec: Vector2 = flock_status[2] * separation_force
 		flock_size = flock_status[3]
-
+		
+		# consolidate forces
 		var acceleration: Vector2 = align_vec + cohesion_vec + separation_vec + target_vec
-
-		var new_velocity: Vector2 = (velocity * acceleration).limit_length(max_speed)
-		if new_velocity.length() <= min_speed:
-			new_velocity = (new_velocity * acceleration).limit_length(min_speed)
-
+		
+		# calculate target velocity
+		var target_velocity: Vector2 = (velocity  + acceleration).limit_length(max_speed)
+		if target_velocity.length() <= min_speed: # TODO: not really sure what this is for
+			target_velocity = (target_velocity * min_speed).limit_length(max_speed)
+		
+		# lerp towards target velocity
+		var new_velocity: Vector2 = velocity.lerp(target_velocity, acceleration_ramp_up)
+			
+		print("curr vel: ", velocity, "| acc: ", acceleration,  " | target vel: ", target_velocity, "| new vel: ", new_velocity)		
+		
+		# apply new velocity
 		if nav_agent.avoidance_enabled:
 			nav_agent.set_velocity(new_velocity)
 		else:
