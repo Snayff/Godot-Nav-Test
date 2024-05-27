@@ -21,7 +21,7 @@ func _draw() -> void:
 		_draw_grid_lines()
 
 func _draw_grid_lines() -> void:
-	# FIXME: this is drawing before tilemap, so not shown. 
+	# FIXME: this is drawing before tilemap, so not shown.
 	# FIXME: drawing not aligned to tilemap
 	var start: Vector2i = Vector2i.ZERO
 	var end: Vector2i = Vector2i.ZERO
@@ -43,13 +43,13 @@ func _draw_grid_lines() -> void:
 
 func _process(delta: float) -> void:
 	_rebuild_grid()
-	_update_actors_flock()
+	_update_actors_local_neighbours()
 
 ## clear existing_grid, rebuild with empty arrays, and populate with bodies.
 func _rebuild_grid() -> void:
 	_grid.clear()
 	_create_empty_grid()
-	for actor in Actors.all_actors:
+	for actor in Actors.get_actors():
 		var grid_point: Vector2i = _scale_pos_to_grid(actor.position)
 		add_body_to_grid(actor, grid_point)
 
@@ -64,10 +64,10 @@ func _create_empty_grid() -> void:
 		for y in range(grid_size.y):
 			_grid[x][y] = []
 
-func _update_actors_flock() -> void:
-	for actor in Actors.all_actors:
-		actor.flock = get_grid_neighbours(_scale_pos_to_grid(actor.position))
-		actor.flock.erase(actor)
+## update the local neighbours, using _grid, for all actors. Includes self, i.e. the actor is its own neighbour.
+func _update_actors_local_neighbours() -> void:
+	for actor in Actors.get_actors():
+		actor.local_neighbours = get_grid_neighbours(_scale_pos_to_grid(actor.position))
 
 ## scale an axis (i.e. single value) to a position in the grid
 func _scale_axis_to_grid(point: float) -> int:
@@ -97,8 +97,9 @@ func get_grid_neighbours(grid_pos: Vector2) -> Array:
 	var y: int = clamp(grid_pos.y -1, 0, grid_size.y)
 	#print("x: ", x, "y: ", y)
 	#print("grid[", x, ", ", y, "]:", _grid[x][y])
-	var bodies: Array = [_grid[x][y]]
-	print("bodies:", bodies)
+	var bodies: Array = []
+	bodies.append_array(_grid[x][y])
+	#print("bodies:", bodies)
 
 	var up: int   = y - 1
 	var down: int = y + 1
@@ -109,24 +110,24 @@ func get_grid_neighbours(grid_pos: Vector2) -> Array:
 
 	# up
 	if up > 0:
-		bodies.append(_grid[x][up])
+		bodies.append_array(_grid[x][up])
 		if left > 0:
-			bodies.append(_grid[left][up])
+			bodies.append_array(_grid[left][up])
 		if right <= grid_size.x:
-			bodies.append(_grid[right][up])
+			bodies.append_array(_grid[right][up])
 	# down
 	if down <= grid_size.y:
-		bodies.append(_grid[x][down])
+		bodies.append_array(_grid[x][down])
 		if left > 0:
-			bodies.append(_grid[left][down])
+			bodies.append_array(_grid[left][down])
 		if right <= grid_size.x:
-			bodies.append(_grid[right][down])
+			bodies.append_array(_grid[right][down])
 
 	# left and right
 	if left > 0:
-		bodies.append(_grid[left][y])
+		bodies.append_array(_grid[left][y])
 	if right <= grid_size.x:
-		bodies.append(_grid[right][y])
+		bodies.append_array(_grid[right][y])
 
 	return bodies
 

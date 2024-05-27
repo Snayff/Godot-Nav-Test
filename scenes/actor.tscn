@@ -50,18 +50,9 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Actor" type="CharacterBody2D"]
+[node name="Actor" type="CharacterBody2D" groups=["actor"]]
 collision_mask = 3
 script = ExtResource("1_gqi0n")
-max_speed = null
-min_speed = null
-target_force = null
-cohesion_force = null
-alignment_force = null
-separation_force = null
-view_distance = null
-avoid_distance = null
-max_flock_size = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 5)
@@ -85,7 +76,5 @@ autostart = true
 wait_time = 0.3
 autostart = true
 
-[connection signal="navigation_finished" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_navigation_finished"]
-[connection signal="target_reached" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_target_reached"]
 [connection signal="timeout" from="Timer_Path" to="." method="_on_timer_path_timeout"]
 [connection signal="timeout" from="Timer_Target" to="." method="_on_timer_target_timeout"]

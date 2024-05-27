@@ -6,16 +6,14 @@ extends CharacterBody2D
 @onready var timer_path: Timer = $Timer_Path
 @onready var timer_target: Timer = $Timer_Target
 
-@export var max_speed: float = 100.0
-@export var min_speed: float = 80.0
-@export var target_force: float = 2.0
-@export var cohesion_force: float = 2.0
-@export var alignment_force: float = 3.0
-@export var separation_force: float = 5.0
-@export var view_distance: float = 50.0
-@export var avoid_distance: float = 15.0
-@export var max_flock_size: float = 15
-@export var acceleration_ramp_up: float = 0.01
+@export var max_speed: float = 50.0
+@export var min_speed: float = 8.0
+@export var target_force: float = 4.0  ## pull towards target destination
+@export var cohesion_force: float = 2.0  ## pull towards centre of unit
+@export var alignment_force: float = 3.0  ## pull towards moving at same speed (I think?)
+@export var separation_force: float = 5.0  ## pull away from other actors in unit
+@export var avoid_distance: float = 15.0  ## how far to move away from other actors in unit
+@export var acceleration_ramp_up: float = 0.01  ## lerp weight for reaching max speed
 
 
 const movement_speed: float = 80.0
@@ -29,13 +27,11 @@ var target_actor: Actor
 var current_state: int = STATE.IDLE
 var ally_team_group: String = ""
 var enemy_team_group: String = ""
-
-var _targets: Array = []
-var flock: Array = []  ## a 2D array of cells in World._grid  # TODO:  set to unit
-var flock_size: int = 0
+var local_neighbours: Array = []  ## set by world. others actors in vicinity.
+var unit_allies: Array = []  ## set by unit. other actors in unit.
+var unit_anchor_point: Vector2 = Vector2.ZERO  ## initially set by parent Unit
 
 func _ready() -> void:
-	EventBus.connect("destination_set", set_destination)
 	nav_agent.velocity_computed.connect(Callable(_on_velocity_computed))
 
 	set_state(STATE.IDLE)
@@ -47,7 +43,6 @@ func _ready() -> void:
 		ally_team_group = "team2"
 		enemy_team_group = "team1"
 
-	Actors.add_to_team(self, ally_team_group)
 
 func _process(delta: float) -> void:
 	if nav_agent.is_navigation_finished():
@@ -58,28 +53,29 @@ func _process(delta: float) -> void:
 func _physics_process(delta) -> void:
 	if current_state == STATE.MOVING and target_destination != Vector2.ZERO:
 		var next_path_pos: Vector2 = nav_agent.get_next_path_position()
-		
+
 		# get target vectors and modify by steering forces
 		var target_vec: Vector2 = global_position.direction_to(next_path_pos) * movement_speed * target_force
-		var flock_status: Array = _get_flock_status()
+		var flock_status: Array = _get_flocking_info()
 		var cohesion_vec: Vector2 = flock_status[0] * cohesion_force
+		#var cohesion_vec: Vector2 = unit_anchor_point * cohesion_force
 		var align_vec: Vector2 = flock_status[1] * alignment_force
 		var separation_vec: Vector2 = flock_status[2] * separation_force
-		flock_size = flock_status[3]
-		
+
 		# consolidate forces
 		var acceleration: Vector2 = align_vec + cohesion_vec + separation_vec + target_vec
-		
+
 		# calculate target velocity
 		var target_velocity: Vector2 = (velocity  + acceleration).limit_length(max_speed)
 		if target_velocity.length() <= min_speed: # TODO: not really sure what this is for
 			target_velocity = (target_velocity * min_speed).limit_length(max_speed)
-		
+	
 		# lerp towards target velocity
 		var new_velocity: Vector2 = velocity.lerp(target_velocity, acceleration_ramp_up)
-			
-		print("curr vel: ", velocity, "| acc: ", acceleration,  " | target vel: ", target_velocity, "| new vel: ", new_velocity)		
-		
+
+#		if name == "Actor":
+#			print("curr vel: ", velocity, "| acc: ", acceleration,  " | target vel: ", target_velocity, "| new vel: ", new_velocity)
+
 		# apply new velocity
 		if nav_agent.avoidance_enabled:
 			nav_agent.set_velocity(new_velocity)
@@ -92,6 +88,8 @@ func _physics_process(delta) -> void:
 
 func set_destination(destination: Vector2) -> void:
 	target_destination = destination
+#	if name == "Actor":
+#		print("Destination: ", destination)
 	update_path()  # do immediately, dont queue
 
 ## updates the nav path, targeting the target_destination
@@ -113,50 +111,56 @@ func _on_timer_path_timeout() -> void:
 		queue_update_path()
 
 ## get the cohesion, alignment, separation and flock size as an array
-func _get_flock_status() -> Array:
+func _get_flocking_info() -> Array:
+	#TODO: can we remove flock centre calcs, as using fixed point (the anchor)?
 	var centre_vec: Vector2 = Vector2.ZERO
 	var flock_centre: Vector2 = Vector2.ZERO
 	var align_vec: Vector2 = Vector2.ZERO
 	var avoid_vec: Vector2 = Vector2.ZERO
-	var other_count: int = 0
+	var flock_count: int   = 0
 
-	for cell in flock:
-		for other in cell:
-			# FIXME: remove when using unit
-			if other_count == max_flock_size:
-				break
+	var actors: Array = local_neighbours.duplicate() + unit_allies.duplicate()
+	#actors.append_array(local_neighbours)  # FIXME: always empty
+	#actors.append_array(unit_allies)
 
-			# ignore self
-			if other == self:
-				continue
+	# get uniques only
+	var flock: Array = []
+	for actor in actors:
+		if not flock.has(actor):
+			flock.append(actor)
 
-			var other_pos: Vector2 = other.global_position
-			var other_velocity: Vector2  = other.velocity
-			var distance_to_other: float = global_position.distance_to(other_pos)
+#	if name == "Actor":
+#		print("Possible Flock size:", actors.size(), "| Actual Flock size:", flock.size())
 
-			# FIXME: why view distance?!
-			if distance_to_other < view_distance:
-				other_count += 1
-				align_vec += other_velocity
-				flock_centre += other_pos
+	# get steering forces from flock
+	for actor in flock:
 
-				if distance_to_other < avoid_distance:
-					avoid_vec -= other_pos - global_position
+		# ignore self
+		if actor == self:
+			continue
+
+		var other_pos: Vector2 = actor.global_position
+		var other_velocity: Vector2  = actor.velocity
+		var distance_to_other: float = global_position.distance_to(other_pos)
+
+		flock_count += 1
+		align_vec += other_velocity
+		flock_centre += other_pos
+
+		if distance_to_other < avoid_distance:
+			avoid_vec -= other_pos - global_position
 
 	# average values
-	if other_count:
-		align_vec /= other_count
-		flock_centre /= other_count
-		centre_vec /= other_count
+	if flock_count:
+		align_vec /= flock_count
+		flock_centre /= flock_count
+		centre_vec /= flock_count
 
 	return [
 		centre_vec.normalized(),
 		align_vec.normalized(),
-		avoid_vec.normalized(),
-		other_count
+		avoid_vec.normalized()
 	]
-
-
 
 
 ####################
@@ -169,10 +173,12 @@ func refresh_target_actor() -> void:
 	if target:
 		set_target_actor(target)
 		timer_target.start()
+#		if name == "Actor":
+#			print(name, ": target refreshed. Targeting pos: ", target.position)
 
 func set_target_actor(target: Actor) -> void:
 	target_actor = target
-	set_destination(target_actor.position)
+	set_destination(target_actor.global_position)
 
 func _on_timer_target_timeout() -> void:
 	refresh_target_actor()

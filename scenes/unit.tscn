@@ -1,0 +1,46 @@
+[gd_scene load_steps=5 format=3 uid="uid://dn2bh5ntjhjv5"]
+
+[ext_resource type="Script" path="res://scenes/unit.gd" id="1_3v0cu"]
+[ext_resource type="Texture2D" uid="uid://be6mg05xk85t4" path="res://assets/unit_flag.png" id="2_t60q0"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hmo53"]
+radius = 6.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fr1ju"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_t60q0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Unit" type="CharacterBody2D" groups=["unit"]]
+y_sort_enabled = true
+script = ExtResource("1_3v0cu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 5)
+shape = SubResource("CircleShape2D_hmo53")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_fr1ju")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+debug_enabled = true
+debug_use_custom = true
+debug_path_custom_color = Color(0.407245, 0.660084, 0.178399, 1)
+
+[node name="Timer_Path" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+autostart = true
+
+[node name="Timer_Target" type="Timer" parent="."]
+wait_time = 0.3
+autostart = true
+
+[connection signal="timeout" from="Timer_Path" to="." method="_on_timer_path_timeout"]
+[connection signal="timeout" from="Timer_Target" to="." method="_on_timer_target_timeout"]
