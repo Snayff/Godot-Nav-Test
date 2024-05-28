@@ -1,8 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://274k52qxmr15"]
+[gd_scene load_steps=8 format=3 uid="uid://274k52qxmr15"]
 
 [ext_resource type="Script" path="res://scenes/world.gd" id="1_4oxq8"]
 [ext_resource type="Texture2D" uid="uid://rpe11jjnt1tb" path="res://assets/caves.png" id="1_jdpwj"]
-[ext_resource type="PackedScene" uid="uid://bvlh8x1msnkw" path="res://scenes/actor.tscn" id="2_eel51"]
 [ext_resource type="PackedScene" uid="uid://dn2bh5ntjhjv5" path="res://scenes/unit.tscn" id="4_ieoaf"]
 [ext_resource type="Script" path="res://scenes/fps_counter.gd" id="4_y4h45"]
 
@@ -76,55 +75,13 @@ navigation_polygon = SubResource("NavigationPolygon_pupyf")
 [node name="Unit1" parent="Units/Team1" groups=["team1"] instance=ExtResource("4_ieoaf")]
 position = Vector2(72, 239)
 
-[node name="Actor3" parent="Units/Team1/Unit1" groups=["team1"] instance=ExtResource("2_eel51")]
-position = Vector2(8, 32)
-
-[node name="Actor4" parent="Units/Team1/Unit1" groups=["team1"] instance=ExtResource("2_eel51")]
-position = Vector2(-13, 20)
-
-[node name="Actor5" parent="Units/Team1/Unit1" groups=["team1"] instance=ExtResource("2_eel51")]
-position = Vector2(-20, 50)
-
 [node name="Unit2" parent="Units/Team1" groups=["team1"] instance=ExtResource("4_ieoaf")]
 position = Vector2(145, 79)
-
-[node name="Actor" parent="Units/Team1/Unit2" groups=["team1"] instance=ExtResource("2_eel51")]
-position = Vector2(-80, 35)
-
-[node name="Actor2" parent="Units/Team1/Unit2" groups=["team1"] instance=ExtResource("2_eel51")]
-position = Vector2(-84, 101)
-
-[node name="Actor6" parent="Units/Team1/Unit2" groups=["team1"] instance=ExtResource("2_eel51")]
-position = Vector2(-84, 69)
 
 [node name="Team2" type="Node" parent="Units"]
 
 [node name="Unit3" parent="Units/Team2" groups=["team2"] instance=ExtResource("4_ieoaf")]
 position = Vector2(315, 152)
 
-[node name="Actor12" parent="Units/Team2/Unit3" groups=["team2"] instance=ExtResource("2_eel51")]
-modulate = Color(0.846222, 0.139286, 0.139286, 1)
-position = Vector2(37, -86)
-
-[node name="Actor9" parent="Units/Team2/Unit3" groups=["team2"] instance=ExtResource("2_eel51")]
-modulate = Color(0.757969, 0.0798969, 0.0798969, 1)
-position = Vector2(47, -46)
-
-[node name="Actor8" parent="Units/Team2/Unit3" groups=["team2"] instance=ExtResource("2_eel51")]
-modulate = Color(0.785124, 0.0982494, 0.0982494, 1)
-position = Vector2(112, 6)
-
 [node name="Unit4" parent="Units/Team2" groups=["team2"] instance=ExtResource("4_ieoaf")]
 position = Vector2(389, 256)
-
-[node name="Actor7" parent="Units/Team2/Unit4" groups=["team2"] instance=ExtResource("2_eel51")]
-modulate = Color(0.866588, 0.176833, 0.176833, 1)
-position = Vector2(40, 10)
-
-[node name="Actor10" parent="Units/Team2/Unit4" groups=["team2"] instance=ExtResource("2_eel51")]
-modulate = Color(0.819067, 0.12943, 0.12943, 1)
-position = Vector2(44, 42)
-
-[node name="Actor11" parent="Units/Team2/Unit4" groups=["team2"] instance=ExtResource("2_eel51")]
-modulate = Color(0.812278, 0.149725, 0.149725, 1)
-position = Vector2(23, 38)

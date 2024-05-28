@@ -52,6 +52,8 @@ animations = [{
 
 [node name="Actor" type="CharacterBody2D" groups=["actor"]]
 collision_mask = 3
+floor_stop_on_slope = false
+floor_block_on_wall = false
 script = ExtResource("1_gqi0n")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

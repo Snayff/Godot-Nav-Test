@@ -13,7 +13,7 @@ var target_unit: Unit
 var ally_team_group: String = ""
 var enemy_team_group: String = ""
 var movement_speed: float = 50.0  ## TODO: take average from child actors
-@export var unit_size: int = 1 ## how many actors in unit
+@export var unit_size: int = 3 ## how many actors in unit
 @export var spawn_radius: int = 35
 
 
@@ -27,6 +27,10 @@ func _ready() -> void:
 	else:
 		ally_team_group = "team2"
 		enemy_team_group = "team1"
+
+	# TODO: remove when diff actors in place
+	if ally_team_group == "team2":
+		modulate = Color.CRIMSON
 
 	_spawn_actors()
 
@@ -66,6 +70,7 @@ func _update_actors_unit_info() -> void:
 		actor.unit_allies = actors
 
 
+## spawn required number of actors randomly around the unit's position
 func _spawn_actors() -> void:
 	var max_attempts: int = 32
 	var pos_variance: int = floor(spawn_radius / 2)
@@ -80,35 +85,39 @@ func _spawn_actors() -> void:
 			var space_state: PhysicsDirectSpaceState2D = get_world_2d().direct_space_state
 			var shape_query_params: PhysicsShapeQueryParameters2D = PhysicsShapeQueryParameters2D.new()
 			var shape: CircleShape2D = CircleShape2D.new()
-			shape.radius = 6
+			shape.radius = 10
 			shape_query_params.shape = shape
 			shape_query_params.transform.origin = spawn_pos
 
 			# check query
-			var results = space_state.intersect_shape(shape_query_params)
-			var filtered_array = results.filter(
+			var results: Array[Dictionary] = space_state.intersect_shape(shape_query_params)
+			var filtered_array: Array = results.filter(
 				func (collision_object):
-						return collision_object.collider.is_in_group("actor")
+						return (collision_object.collider.is_in_group("actor") or collision_object.collider.is_in_group("actor"))
 			)
 
 			# visual and console output for debugging
 			#print(results)
-			var area_2d = Area2D.new()
-			area_2d.position = shape_query_params.transform.origin
-			var collision_shape_2d = CollisionShape2D.new()
-			var collision_shape = CircleShape2D.new()
-			collision_shape.radius = shape.radius
-			collision_shape_2d.shape = collision_shape
-
-			area_2d.add_child(collision_shape_2d)
-			add_child(area_2d)
+#			var area_2d = Area2D.new()
+#			var collision_shape_2d = CollisionShape2D.new()
+#			var collision_shape = CircleShape2D.new()
+#			area_2d.add_child(collision_shape_2d)
+#			add_child(area_2d)
+#			area_2d.global_position = shape_query_params.transform.origin
+#			collision_shape.radius = shape.radius
+#			collision_shape_2d.shape = collision_shape
 
 			# if no collisions
 			if filtered_array.size() == 0:
 				var actor: Actor = actor_scene.instantiate()
-				actor.position = spawn_pos
-				print("Unit pos: ", global_position, " | actor (", actor, ") spawned at: ", spawn_pos)
 				add_child(actor)
+				actor.global_position = spawn_pos
+
+				# colour enemy
+				if ally_team_group == "team2":
+					actor.modulate = Color.CRIMSON
+
+				print("Unit pos: ", global_position, " | actor (", actor, ") spawned at: ", spawn_pos)
 				break
 
 ####################

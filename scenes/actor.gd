@@ -12,7 +12,7 @@ extends CharacterBody2D
 @export var cohesion_force: float = 2.0  ## pull towards centre of unit
 @export var alignment_force: float = 3.0  ## pull towards moving at same speed (I think?)
 @export var separation_force: float = 5.0  ## pull away from other actors in unit
-@export var avoid_distance: float = 15.0  ## how far to move away from other actors in unit
+@export var avoid_distance: float = 15.0  ## how far to move away from other actors
 @export var acceleration_ramp_up: float = 0.01  ## lerp weight for reaching max speed
 
 
@@ -69,7 +69,7 @@ func _physics_process(delta) -> void:
 		var target_velocity: Vector2 = (velocity  + acceleration).limit_length(max_speed)
 		if target_velocity.length() <= min_speed: # TODO: not really sure what this is for
 			target_velocity = (target_velocity * min_speed).limit_length(max_speed)
-	
+
 		# lerp towards target velocity
 		var new_velocity: Vector2 = velocity.lerp(target_velocity, acceleration_ramp_up)
 
@@ -120,8 +120,6 @@ func _get_flocking_info() -> Array:
 	var flock_count: int   = 0
 
 	var actors: Array = local_neighbours.duplicate() + unit_allies.duplicate()
-	#actors.append_array(local_neighbours)  # FIXME: always empty
-	#actors.append_array(unit_allies)
 
 	# get uniques only
 	var flock: Array = []
@@ -138,17 +136,23 @@ func _get_flocking_info() -> Array:
 		# ignore self
 		if actor == self:
 			continue
-
+			
 		var other_pos: Vector2 = actor.global_position
-		var other_velocity: Vector2  = actor.velocity
-		var distance_to_other: float = global_position.distance_to(other_pos)
+			
+		# we want to use only unit allies for most calculations
+		if unit_allies.has(actor):
 
-		flock_count += 1
-		align_vec += other_velocity
-		flock_centre += other_pos
-
-		if distance_to_other < avoid_distance:
-			avoid_vec -= other_pos - global_position
+			
+			var other_velocity: Vector2  = actor.velocity
+			flock_count += 1
+			align_vec += other_velocity
+			flock_centre += other_pos
+		
+		# must be a local neighbour
+		else: 
+			var distance_to_other: float = global_position.distance_to(other_pos)
+			if distance_to_other < avoid_distance:
+				avoid_vec -= other_pos - global_position
 
 	# average values
 	if flock_count:
