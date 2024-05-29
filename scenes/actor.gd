@@ -73,14 +73,27 @@ func _physics_process(delta) -> void:
 		# lerp towards target velocity
 		var new_velocity: Vector2 = velocity.lerp(target_velocity, acceleration_ramp_up)
 
-#		if name == "Actor":
-#			print("curr vel: ", velocity, "| acc: ", acceleration,  " | target vel: ", target_velocity, "| new vel: ", new_velocity)
-
 		# apply new velocity
 		if nav_agent.avoidance_enabled:
 			nav_agent.set_velocity(new_velocity)
 		else:
 			_on_velocity_computed(new_velocity)
+
+func set_steering_param(parameter_name: String, value: Variant) -> void:
+	match parameter_name.to_lower():
+		"target":
+			target_force = value
+		"cohesion":
+			cohesion_force = value
+		"alignment":
+			alignment_force = value
+		"separation":
+			separation_force = value
+		"avoidance":
+			avoid_distance = value
+		_:
+			push_warning("Parameter (", parameter_name, ") not set as not found.")
+
 
 ####################
 ##### PATHING ######

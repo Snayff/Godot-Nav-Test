@@ -1,9 +1,18 @@
-[gd_scene load_steps=8 format=3 uid="uid://274k52qxmr15"]
+[gd_scene load_steps=11 format=3 uid="uid://274k52qxmr15"]
 
 [ext_resource type="Script" path="res://scenes/world.gd" id="1_4oxq8"]
 [ext_resource type="Texture2D" uid="uid://rpe11jjnt1tb" path="res://assets/caves.png" id="1_jdpwj"]
+[ext_resource type="PackedScene" uid="uid://cy1dl5t1qfcfp" path="res://scenes/slider_with_direct_set.tscn" id="3_e2jrj"]
 [ext_resource type="PackedScene" uid="uid://dn2bh5ntjhjv5" path="res://scenes/unit.tscn" id="4_ieoaf"]
 [ext_resource type="Script" path="res://scenes/fps_counter.gd" id="4_y4h45"]
+
+[sub_resource type="SystemFont" id="SystemFont_83lg1"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_tget1"]
+font = SubResource("SystemFont_83lg1")
+font_size = 10
+outline_size = 1
+outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_g6q47"]
 texture = ExtResource("1_jdpwj")
@@ -45,7 +54,56 @@ follow_viewport_enabled = true
 [node name="FPSCounter" type="Label" parent="HUD/CanvasLayer"]
 offset_right = 40.0
 offset_bottom = 23.0
+label_settings = SubResource("LabelSettings_tget1")
 script = ExtResource("4_y4h45")
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="HUD"]
+
+[node name="Panel" type="Panel" parent="HUD/CanvasLayer2"]
+custom_minimum_size = Vector2(0, 70)
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -70.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD/CanvasLayer2/Panel"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -29.0
+offset_bottom = 29.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SliderTarget" parent="HUD/CanvasLayer2/Panel/HBoxContainer" instance=ExtResource("3_e2jrj")]
+layout_mode = 2
+parameter = "target"
+initial_value = 4.0
+
+[node name="SliderCohesion" parent="HUD/CanvasLayer2/Panel/HBoxContainer" instance=ExtResource("3_e2jrj")]
+layout_mode = 2
+initial_value = 2.0
+
+[node name="SliderAlignment" parent="HUD/CanvasLayer2/Panel/HBoxContainer" instance=ExtResource("3_e2jrj")]
+layout_mode = 2
+parameter = "alignment"
+initial_value = 3.0
+
+[node name="SliderSeparation" parent="HUD/CanvasLayer2/Panel/HBoxContainer" instance=ExtResource("3_e2jrj")]
+layout_mode = 2
+parameter = "separation"
+initial_value = 5.0
+
+[node name="SliderAvoidance" parent="HUD/CanvasLayer2/Panel/HBoxContainer" instance=ExtResource("3_e2jrj")]
+layout_mode = 2
+parameter = "avoidance"
+initial_value = 15.0
 
 [node name="TileMap" type="TileMap" parent="." groups=["navigation"]]
 position = Vector2(256, 194)
