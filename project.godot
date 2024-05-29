@@ -21,6 +21,12 @@ EventBus="*res://scripts/event_bus.gd"
 Pathing="*res://scripts/pathing.gd"
 Actors="*res://scripts/actors.gd"
 
+[layer_names]
+
+2d_physics/layer_1="Terrain"
+2d_physics/layer_2="Actors"
+2d_physics/layer_3="Units"
+
 [navigation]
 
 2d/default_cell_size=4.0

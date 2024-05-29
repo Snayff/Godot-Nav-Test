@@ -21,8 +21,7 @@ func _draw() -> void:
 		_draw_grid_lines()
 
 func _draw_grid_lines() -> void:
-	# FIXME: this is drawing before tilemap, so not shown.
-	# FIXME: drawing not aligned to tilemap
+	# FIXME: grid is offset
 	var start: Vector2i = Vector2i.ZERO
 	var end: Vector2i = Vector2i.ZERO
 	var colour: Color = Color.PINK
@@ -31,14 +30,28 @@ func _draw_grid_lines() -> void:
 		start = Vector2i(x * _grid_scale, 0)
 		end = Vector2i(x * _grid_scale, grid_size.y * _grid_scale)
 		#print("Draw horizontal (", start, end, ")")
-		draw_line(start, end, colour, 2)
+		var line = Line2D.new()
+		add_child(line)
+		line.add_point(start)
+		line.add_point(end)
+		line.default_color = colour
+		line.z_index = 100
+		line.width = 2
+		#draw_line(start, end, colour, 2)
 		#draw_dashed_line(start, end, colour)
 
 	for y in range(0, grid_size.y + 1):
 		start = Vector2i(0, y * _grid_scale)
 		end = Vector2i(grid_size.x * _grid_scale, y * _grid_scale)
 		#print("Draw vertical (", start, end, ")")
-		draw_line(start, end, colour, 2)
+		var line = Line2D.new()
+		add_child(line)
+		line.add_point(start)
+		line.add_point(end)
+		line.default_color = colour
+		line.z_index = 100
+		line.width = 2
+		#draw_line(start, end, colour, 2)
 		#draw_dashed_line(start, end, colour)
 
 func _process(delta: float) -> void:

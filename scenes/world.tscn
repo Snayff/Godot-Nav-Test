@@ -24,8 +24,8 @@ physics_layer_0/collision_layer = 1
 sources/1 = SubResource("TileSetAtlasSource_g6q47")
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_pupyf"]
-vertices = PackedVector2Array(87, -57, 105, -55, 105, -25, 103, 9, 73, 9, -41, 7, -41, -23, -7, -57, 73, 89, 25, 89, -57, 87, -57, 57, 121, -71, 121, -55, 87, -103, 183, -73, 183, -103, 201, -152, 201, 152, 103, 119, -217, 152, 25, 119, 167, -57, 64, -153, 153, -103, 153, -87, 137, -87, 137, -71, -7, -103, -217, -153, 135, -25, 135, -41, 151, -41, 151, -57, 167, -73, -137, -23, -137, -103, -73, 57, -73, 41, -137, 7, -103, 41, -137, 87, -103, 87, -167, 87, -167, -103)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4, 5, 6, 7), PackedInt32Array(5, 4, 8, 9, 10, 11), PackedInt32Array(12, 13, 1, 0, 14), PackedInt32Array(15, 16, 17, 18), PackedInt32Array(19, 18, 20, 21), PackedInt32Array(15, 18, 19, 3, 22), PackedInt32Array(23, 17, 16, 24), PackedInt32Array(24, 25, 26, 23), PackedInt32Array(23, 26, 27, 12, 14), PackedInt32Array(23, 14, 28, 29), PackedInt32Array(30, 31, 32), PackedInt32Array(32, 33, 22), PackedInt32Array(22, 34, 15), PackedInt32Array(32, 22, 3), PackedInt32Array(30, 32, 3), PackedInt32Array(2, 30, 3), PackedInt32Array(7, 6, 35, 36, 28), PackedInt32Array(11, 37, 38, 5), PackedInt32Array(39, 5, 38, 40), PackedInt32Array(41, 39, 40, 42), PackedInt32Array(10, 9, 21, 20, 42), PackedInt32Array(41, 42, 20), PackedInt32Array(43, 41, 20), PackedInt32Array(43, 20, 29, 44), PackedInt32Array(29, 28, 36), PackedInt32Array(29, 36, 44)])
+vertices = PackedVector2Array(87, -58, 105, -56, 105, -26, 103, 8, 73, 8, -41, 6, -41, -24, -7, -58, 73, 88, 25, 88, -57, 86, -57, 56, 121, -72, 121, -56, 87, -104, 183, -74, 183, -104, 201, -152, 201, 152, 103, 118, -217, 152, 25, 118, 167, -58, -81, -154, 153, -104, 153, -88, 137, -88, 137, -72, 135, -26, 135, -42, 151, -42, 151, -58, 167, -74, -137, -24, -137, -104, -7, -104, -73, 56, -73, 40, -137, 6, -103, 40, -137, 86, -103, 86, -167, 86, -217, -154, -167, -104)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4, 5, 6, 7), PackedInt32Array(5, 4, 8, 9, 10, 11), PackedInt32Array(12, 13, 1, 0, 14), PackedInt32Array(15, 16, 17, 18), PackedInt32Array(19, 18, 20, 21), PackedInt32Array(15, 18, 19, 3, 22), PackedInt32Array(23, 17, 16, 24), PackedInt32Array(24, 25, 26, 14), PackedInt32Array(26, 27, 12, 14), PackedInt32Array(28, 29, 30), PackedInt32Array(30, 31, 22), PackedInt32Array(22, 32, 15), PackedInt32Array(30, 22, 3), PackedInt32Array(28, 30, 3), PackedInt32Array(2, 28, 3), PackedInt32Array(7, 6, 33, 34, 23, 35), PackedInt32Array(11, 36, 37, 5), PackedInt32Array(38, 5, 37, 39), PackedInt32Array(40, 38, 39, 41), PackedInt32Array(10, 9, 21, 20, 41), PackedInt32Array(40, 41, 20), PackedInt32Array(42, 40, 20), PackedInt32Array(42, 20, 43, 44), PackedInt32Array(44, 43, 23, 34), PackedInt32Array(23, 24, 14), PackedInt32Array(23, 14, 35)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-225, -162, -224, 159, 208, 160, 208, -159)])
 source_geometry_mode = 1
 source_geometry_group_name = &"navigation"
@@ -33,16 +33,11 @@ cell_size = 4.0
 agent_radius = 7.0
 
 [node name="World" type="Node2D"]
-position = Vector2(256, 192)
 script = ExtResource("1_4oxq8")
 
 [node name="HUD" type="Control" parent="."]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="HUD"]
 follow_viewport_enabled = true
@@ -53,6 +48,7 @@ offset_bottom = 23.0
 script = ExtResource("4_y4h45")
 
 [node name="TileMap" type="TileMap" parent="." groups=["navigation"]]
+position = Vector2(256, 194)
 tile_set = SubResource("TileSet_v5ffv")
 format = 2
 layer_0/name = "Walkable"
@@ -62,10 +58,11 @@ layer_1/z_index = 1
 layer_1/tile_data = PackedInt32Array(-327690, 458753, 9, -262154, 458753, 9, -196618, 458753, 9, -131082, 458753, 9, -65546, 458753, 9, -10, 458753, 9, 65526, 458753, 9, 131062, 458753, 9, 196598, 458753, 9, 262134, 458753, 9, 327670, 458753, 9, -9, 458753, 9, -8, 458753, 9, -7, 458753, 9, -6, 458753, 9, -5, 458753, 9, -4, 458753, 9, 262138, 458753, 9, 327674, 458753, 9, 327675, 458753, 9, 65541, 458753, 9, 131077, 458753, 9, 196613, 458753, 9, 262149, 458753, 9, 327685, 458753, 9, 393221, 458753, 9, 393220, 458753, 9, 393219, 458753, 9, 393218, 458753, 9, -196601, 458753, 9, -262136, 458753, 9, -327671, 458753, 9, -393206, 458753, 9, -393216, 458753, 9, -393215, 458753, 9, -393214, 458753, 9, -393213, 458753, 9, -393212, 458753, 9, -327676, 458753, 9, -327677, 458753, 9, -327678, 458753, 9, -327679, 458753, 9, -327680, 458753, 9, 196609, 131073, 0, 131073, 131073, 0, 196610, 131073, 0, 131074, 131073, 0)
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(17, -1)
+position = Vector2(288, 164)
 zoom = Vector2(2, 2)
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+position = Vector2(256, 195)
 navigation_polygon = SubResource("NavigationPolygon_pupyf")
 
 [node name="Units" type="Node" parent="."]
@@ -73,15 +70,15 @@ navigation_polygon = SubResource("NavigationPolygon_pupyf")
 [node name="Team1" type="Node" parent="Units"]
 
 [node name="Unit1" parent="Units/Team1" groups=["team1"] instance=ExtResource("4_ieoaf")]
-position = Vector2(72, 239)
+position = Vector2(77, 224)
 
 [node name="Unit2" parent="Units/Team1" groups=["team1"] instance=ExtResource("4_ieoaf")]
-position = Vector2(145, 79)
+position = Vector2(128, 148)
 
 [node name="Team2" type="Node" parent="Units"]
 
 [node name="Unit3" parent="Units/Team2" groups=["team2"] instance=ExtResource("4_ieoaf")]
-position = Vector2(315, 152)
+position = Vector2(447, 86)
 
 [node name="Unit4" parent="Units/Team2" groups=["team2"] instance=ExtResource("4_ieoaf")]
-position = Vector2(389, 256)
+position = Vector2(438, 296)

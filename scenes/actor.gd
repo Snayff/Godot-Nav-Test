@@ -136,20 +136,20 @@ func _get_flocking_info() -> Array:
 		# ignore self
 		if actor == self:
 			continue
-			
+
 		var other_pos: Vector2 = actor.global_position
-			
+
 		# we want to use only unit allies for most calculations
 		if unit_allies.has(actor):
 
-			
+
 			var other_velocity: Vector2  = actor.velocity
 			flock_count += 1
 			align_vec += other_velocity
 			flock_centre += other_pos
-		
+
 		# must be a local neighbour
-		else: 
+		else:
 			var distance_to_other: float = global_position.distance_to(other_pos)
 			if distance_to_other < avoid_distance:
 				avoid_vec -= other_pos - global_position
