@@ -57,9 +57,11 @@ y_sort_enabled = true
 collision_layer = 2
 collision_mask = 3
 motion_mode = 1
+wall_min_slide_angle = 0.0
 floor_stop_on_slope = false
 floor_constant_speed = true
 floor_block_on_wall = false
+safe_margin = 0.2
 script = ExtResource("1_gqi0n")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -71,6 +73,7 @@ sprite_frames = SubResource("SpriteFrames_vl5q1")
 animation = &"idle"
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_max_distance = 1000.0
 debug_enabled = true
 debug_use_custom = true
 debug_path_custom_color = Color(0.660084, 0.642543, 0.178399, 1)

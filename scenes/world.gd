@@ -1,6 +1,6 @@
 extends Node2D
 
-@onready var _tile_map: TileMap = $TileMap
+@onready var _tile_map: TileMap = $NavigationRegion2D/TileMap
 
 @export var _show_grid: bool = true  ## whether to show the grid lines
 @export var _grid_scale: int = 32 ## ratio of map to grid

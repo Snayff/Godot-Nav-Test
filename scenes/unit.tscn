@@ -24,6 +24,8 @@ y_sort_enabled = true
 collision_layer = 4
 collision_mask = 5
 motion_mode = 1
+wall_min_slide_angle = 0.0
+safe_margin = 0.2
 script = ExtResource("1_3v0cu")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -34,6 +36,7 @@ shape = SubResource("CircleShape2D_hmo53")
 sprite_frames = SubResource("SpriteFrames_fr1ju")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_max_distance = 1000.0
 debug_enabled = true
 debug_use_custom = true
 debug_path_custom_color = Color(0.407245, 0.660084, 0.178399, 1)
