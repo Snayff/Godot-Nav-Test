@@ -31,6 +31,10 @@ var local_neighbours: Array = []  ## set by world. others actors in vicinity.
 var unit_allies: Array = []  ## set by unit. other actors in unit.
 var unit_anchor_point: Vector2 = Vector2.ZERO  ## initially set by parent Unit
 
+var _debug_info: Dictionary = {}
+var _debug_font: Font = ThemeDB.fallback_font
+
+
 func _ready() -> void:
 	nav_agent.velocity_computed.connect(Callable(_on_velocity_computed))
 
@@ -49,6 +53,41 @@ func _process(delta: float) -> void:
 		set_state(STATE.IDLE)
 	else:
 		set_state(STATE.MOVING)
+
+	queue_redraw()  # for debug lines
+
+
+func _draw() -> void:
+	if _debug_info.has("target"):
+		if _debug_info["target"] != Vector2.ZERO:
+			draw_line(position, _debug_info["target"], Color.GREEN, 1.0)
+			draw_string(_debug_font, _debug_info["target"], "T", HORIZONTAL_ALIGNMENT_CENTER, -1, 8, Color.GREEN)
+			pass
+
+	if _debug_info.has("cohesion"):
+		if _debug_info["cohesion"] != Vector2.ZERO:
+			#draw_line(position, _debug_info["cohesion"], Color.BLACK, 0.5)
+			#draw_string(_debug_font, _debug_info["cohesion"], "C")
+			pass
+
+	if _debug_info.has("align"):
+		if _debug_info["align"] != Vector2.ZERO:
+			#draw_line(position, _debug_info["align"], Color.GRAY, 0.5)
+			#draw_string(_debug_font, _debug_info["align"], "A")
+			pass
+
+	if _debug_info.has("separation"):
+		if _debug_info["separation"] != Vector2.ZERO:
+			#draw_line(position, _debug_info["separation"], Color.RED, 0.5)
+			#draw_string(_debug_font, _debug_info["separation"], "S")
+			pass
+
+	if _debug_info.has("velocity"):
+		if _debug_info["velocity"] != Vector2.ZERO:
+			#draw_line(position, _debug_info["velocity"], Color.GREEN, 1.0)
+			#draw_string(_debug_font, _debug_info["velocity"], "V")
+			pass
+
 
 func _physics_process(delta) -> void:
 	if current_state == STATE.MOVING and target_destination != Vector2.ZERO:
@@ -73,6 +112,16 @@ func _physics_process(delta) -> void:
 		# lerp towards target velocity
 		var new_velocity: Vector2 = velocity.lerp(target_velocity, acceleration_ramp_up)
 
+		# add vectors to debug
+		var debug: Dictionary = {
+			"target": target_vec,#.normalized(),
+			"cohesion": cohesion_vec,#.normalized(),
+			"align": align_vec,#.normalized(),
+			"separation": separation_vec,#.normalized(),
+			"velocity": new_velocity,#.normalized()
+		}
+		_update_debug_info(debug)
+
 		# apply new velocity
 		if nav_agent.avoidance_enabled:
 			nav_agent.set_velocity(new_velocity)
@@ -94,6 +143,10 @@ func set_steering_param(parameter_name: String, value: Variant) -> void:
 		_:
 			push_warning("Parameter (", parameter_name, ") not set as not found.")
 
+## add the info from the provided dict to the debug_info dict. Overwrites value is key already exists.
+func _update_debug_info(info: Dictionary) -> void:
+	for key in info:
+		_debug_info[key] = info[key]
 
 ####################
 ##### PATHING ######

@@ -54,6 +54,7 @@ func _on_spin_box_value_changed(value: float) -> void:
 
 
 func _update_actors_steering_parameter(value: float) -> void:
+	# FIXME: this is being hit 4 times on game init
 	_value = value * scale_factor
 	get_tree().call_group(target_group, "set_steering_param", parameter, value)
-	print(parameter, " set to ", value, " for all nodes in group '", target_group)
+	#print(parameter, " set to ", value, " for all nodes in group '", target_group, "'.")

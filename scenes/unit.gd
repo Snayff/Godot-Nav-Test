@@ -111,6 +111,7 @@ func _spawn_actors() -> void:
 			if filtered_array.size() == 0:
 				var actor: Actor = actor_scene.instantiate()
 				add_child(actor)
+				#actor.top_level = true
 				actor.global_position = spawn_pos
 
 				# colour enemy
